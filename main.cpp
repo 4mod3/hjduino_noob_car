@@ -111,23 +111,28 @@ int main(int argc, char *argv[])
    			brake(2);
 		}
 
-		//printf("%i, %i", distence_flag, edge_flag);
-		if(distence_flag ^ edge_flag == true)
+		// capture>>frame;
+		// imshow("raw", frame);
+
+		printf("%i, %i\n", distence_flag, edge_flag);
+		if(distence_flag && edge_flag == true)
 		{
 			//使用视觉进行控制
 			//在本段逻辑之前未进行控制操作
-
+			printf("visual control\n");
 			capture>>frame;
 			// 循环检测停止标记
 			while(signDetect(frame, "stop", 8, 10000))
 			{
 				printf("Get Sign >> STOP\n");
-   				brake(2);
+   				brake(5);
 				capture>>frame;
+				//delay(1000);
 			}
 
 			if(signDetect(frame, "sound", 8, 10000)){
 				//蜂鸣器
+				printf("Bee---");
 				digitalWrite(7, true);
 				delay(2000);
 				digitalWrite(7, false);
@@ -138,12 +143,13 @@ int main(int argc, char *argv[])
 				diff_right = (int)(0.6*(center - 340));
 				diff_left = 0;
 			}else if(center<300){
-				diff_left = (int)(0.6*(center - 340));
+				diff_left = (int)(0.6*(300 - center));
 				diff_right = 0;
 			}else{
 				diff_left = 0;
 				diff_right = 0;
 			}
+			
 			visual_forward(diff_right, diff_left);
 			//delay(500);
 		}
