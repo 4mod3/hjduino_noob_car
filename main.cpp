@@ -36,6 +36,7 @@ int main(int argc, char *argv[])
     pinMode (4, OUTPUT);	//IN2
     pinMode (5, OUTPUT);	//IN3
     pinMode (6, OUTPUT);	//IN4
+	pinMode (7, OUTPUT);	//IN4
 
     softPwmCreate(1,1,500);   
     softPwmCreate(4,1,500);
@@ -126,8 +127,10 @@ int main(int argc, char *argv[])
 			}
 
 			if(signDetect(frame, "sound", 8, 10000)){
-				//sound()
 				//蜂鸣器
+				digitalWrite(7, true);
+				delay(2000);
+				digitalWrite(7, false);
 			}
 
 			center = visualControlByCenter(frame);
