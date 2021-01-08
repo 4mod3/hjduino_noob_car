@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 	{
 		//Á∫?Ôø??ÔøΩÊµãË∑ùÂíåÔø??Ëøπ‰ΩøÔø??
         distence_flag = true;
-		edge_flag = true;
+		edge_flag = false;
 
 		if(distence_flag == false)
 		{
@@ -187,10 +187,10 @@ int main(int argc, char *argv[])
 			}
 			printf("num:%d\n", list.size());
 			if(list.size() == 1){
-				if(centroids.at<double>(1, 1) < 80){
-					visual_forward(-diff_pwm_cyc, diff_pwm_cyc);
+				if(centroids.at<double>(1, 1) < 40){
+					visual_forward(diff_pwm_cyc, -diff_pwm_cyc);
 				}
-				else if(centroids.at<double>(1, 1) < 180){
+				else if(centroids.at<double>(1, 1) < 150){
 					double angle = stats.at<int>(1, CC_STAT_HEIGHT)/stats.at<int>(1, CC_STAT_WIDTH);
 					int bottom = stats.at<int>(1, CC_STAT_TOP) + stats.at<int>(1, CC_STAT_HEIGHT)-1;
 					int x1 = 0, x2 = 0;
@@ -221,10 +221,10 @@ int main(int argc, char *argv[])
 				}
 				else{
 					int bottom = stats.at<int>(1, CC_STAT_TOP) + stats.at<int>(1, CC_STAT_HEIGHT);
-					int x1, x2;
+					int x1 = 0, x2 = 0;
 					for(int i=0;i<stats.at<int>(1, CC_STAT_WIDTH);i++){
 						if(x1 == 0 && image.at<uchar>(stats.at<int>(1, CC_STAT_TOP), stats.at<int>(1, CC_STAT_LEFT)+i) == 0){
-							printf("%d, %d",stats.at<int>(1, CC_STAT_LEFT),  stats.at<int>(1, CC_STAT_LEFT)+i);
+							// printf("%d, %d\n",stats.at<int>(1, CC_STAT_LEFT),  stats.at<int>(1, CC_STAT_LEFT)+i);
 							x1 = stats.at<int>(1, CC_STAT_LEFT)+i;
 						}
 						if(x2 == 0 && image.at<uchar>(bottom, stats.at<int>(1, CC_STAT_LEFT)+i) == 0){
@@ -240,7 +240,7 @@ int main(int argc, char *argv[])
 				}
 			}
 			else{
-				visual_forward(-diff_pwm_cyc, diff_pwm_cyc);
+				visual_forward(diff_pwm_cyc, -diff_pwm_cyc);
 			}
 			delay(50);
 			imshow("image", image);
