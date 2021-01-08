@@ -62,6 +62,37 @@ int visualControlByCenter(Mat& frame)
     return count > 0?sum/count:320;
 }
 
+int right_left_distence(Mat& image, int row_num)
+{
+    int middle_cols = image.cols / 2;
+    int left_count=0, right_count=0;
+    // line(image, Point(0, row_num), Point(image.cols-1, row_num), Scalar( 0, 0, 0 ), 3);
+    //printf("%d\n", image.step[0]);
+    
+    waitKey(30);
+
+    for(int i = middle_cols; i>=0; i--)
+    {
+        //printf("%d\n", image.at<uchar>(row_num, i));
+        if(image.at<uchar>(row_num, i) == 255){
+            left_count++;
+        }else{
+            break;
+        }
+    }
+
+    for(int j = middle_cols; j<image.cols; j++)
+    {
+        if(image.at<uchar>(row_num, j) == 255){
+            right_count++;
+        }else{
+            break;
+        }
+    }
+    // printf("%d, %d\n", left_count, right_count);
+    return right_count - left_count;
+}
+
 bool signDetect(Mat& src, string signType,double epsilon, int minAcreage)
 {
     Mat dst, mask;
@@ -81,13 +112,13 @@ bool signDetect(Mat& src, string signType,double epsilon, int minAcreage)
     morphologyEx(mask, mask, MORPH_OPEN, element); 
     morphologyEx(mask, mask, MORPH_CLOSE, element);
 
-    //±ßÔµ¼ì²â
+    //ï¿½ï¿½Ôµï¿½ï¿½ï¿?
     vector<vector<Point>> contours;
     vector<Vec4i> hierarchy;
     Mat canny_output;
-    Canny(mask, canny_output, 1, 3, 7, true);  //Canny¼ì²â
+    Canny(mask, canny_output, 1, 3, 7, true);  //Cannyï¿½ï¿½ï¿?
 
-    //ÂÖÀª²éÕÒ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     Mat image = canny_output.clone();
     findContours(image, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE, Point());
 
@@ -95,9 +126,9 @@ bool signDetect(Mat& src, string signType,double epsilon, int minAcreage)
     if(signType == "stop"){
         for(int i=0;i<contours.size();i++){
             double acreage = contourArea(contours[i], true);
-            if(acreage > minAcreage) { //Ãæ»ýÉ¸Ñ¡
+            if(acreage > minAcreage) { //ï¿½ï¿½ï¿½É¸Ñ?
                 vector<Point> contourspoly;
-                approxPolyDP(contours[i], contourspoly, epsilon, true);//ÓÃÖ¸¶¨¾«¶È±Æ½ü¶à±ßÐÎÇúÏß
+                approxPolyDP(contours[i], contourspoly, epsilon, true);//ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½È±Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
                 if(contourspoly.size() == 8)return true;
                 // for(int j=0;j<contourspoly.size();j++){
                 //     circle(src, contourspoly[j], 4, Scalar(0,0,255), -1);
@@ -109,7 +140,7 @@ bool signDetect(Mat& src, string signType,double epsilon, int minAcreage)
 	else if(signType == "sound"){
         for(int i=0;i<contours.size();i++){
             double acreage = contourArea(contours[i], true);
-            if(acreage > minAcreage) { //Ãæ»ýÉ¸Ñ¡   
+            if(acreage > minAcreage) { //ï¿½ï¿½ï¿½É¸Ñ?   
                 RotatedRect ell = fitEllipse(contours[i]);
                 if(acreage/(pi*ell.size.width*ell.size.height) > 0.2){
                     return true;

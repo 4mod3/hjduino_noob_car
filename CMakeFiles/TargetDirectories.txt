@@ -1,0 +1,3 @@
+/home/pi/hjduino_noob_car/CMakeFiles/rebuild_cache.dir
+/home/pi/hjduino_noob_car/CMakeFiles/NoobCar.dir
+/home/pi/hjduino_noob_car/CMakeFiles/edit_cache.dir

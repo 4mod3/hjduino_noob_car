@@ -31,7 +31,9 @@
 
 extern void run();
 extern void brake(int time);
-extern void left();
-extern void right();
+extern void RotateLeft();
+extern void RotateRight();
+extern void turnLeft();
+extern void turnRight();
 extern void back();
 extern void visual_forward(int diff_right, int diff_left);
