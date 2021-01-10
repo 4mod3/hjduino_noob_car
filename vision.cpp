@@ -108,15 +108,16 @@ bool signDetect(Mat& src, string signType,double epsilon, int minAcreage)
         inRange(dst, Scalar(100, 43, 46), Scalar(124, 255, 255), mask);
         // imshow("blue", mask);
     }
+    
     Mat element = getStructuringElement(MORPH_ELLIPSE, Size(3, 3)); 
     morphologyEx(mask, mask, MORPH_OPEN, element); 
     morphologyEx(mask, mask, MORPH_CLOSE, element);
 
-    //��Ե���?
+    //��Ե���?
     vector<vector<Point>> contours;
     vector<Vec4i> hierarchy;
     Mat canny_output;
-    Canny(mask, canny_output, 1, 3, 7, true);  //Canny���?
+    Canny(mask, canny_output, 1, 3, 7, true);  //Canny���?
 
     //��������
     Mat image = canny_output.clone();
@@ -126,9 +127,9 @@ bool signDetect(Mat& src, string signType,double epsilon, int minAcreage)
     if(signType == "stop"){
         for(int i=0;i<contours.size();i++){
             double acreage = contourArea(contours[i], true);
-            if(acreage > minAcreage) { //���ɸ�?
+            if(acreage > minAcreage) { //���ɸ�?
                 vector<Point> contourspoly;
-                approxPolyDP(contours[i], contourspoly, epsilon, true);//��ָ�����ȱƽ����������?
+                approxPolyDP(contours[i], contourspoly, epsilon, true);//��ָ�����ȱƽ����������?
                 if(contourspoly.size() == 8)return true;
                 // for(int j=0;j<contourspoly.size();j++){
                 //     circle(src, contourspoly[j], 4, Scalar(0,0,255), -1);
@@ -140,7 +141,7 @@ bool signDetect(Mat& src, string signType,double epsilon, int minAcreage)
 	else if(signType == "sound"){
         for(int i=0;i<contours.size();i++){
             double acreage = contourArea(contours[i], true);
-            if(acreage > minAcreage) { //���ɸ�?   
+            if(acreage > minAcreage) { //���ɸ�?   
                 RotatedRect ell = fitEllipse(contours[i]);
                 if(acreage/(pi*ell.size.width*ell.size.height) > 0.2){
                     return true;
