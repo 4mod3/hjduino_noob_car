@@ -19,10 +19,10 @@ void brake(int time)         //刹车，停�???
 
 void RotateLeft()         //左转()
 {
-    softPwmWrite(4,200); //左轮
+    softPwmWrite(4,220); //左轮
 	softPwmWrite(1,0); 
 	softPwmWrite(6,0); //右轮前进
-	softPwmWrite(5,200); 
+	softPwmWrite(5,50); 
 	printf("RotateLeft\n");
 	//delay(time * 300);
    // delay(time * 300);
@@ -33,19 +33,19 @@ void RotateLeft()         //左转()
 void RotateRight()        //右转()
 {
     softPwmWrite(4,0); //左轮前进
-	softPwmWrite(1,200); 
-	softPwmWrite(6,200); //右轮
+	softPwmWrite(1,50); 
+	softPwmWrite(6,220); //右轮
 	softPwmWrite(5,0); 
 	printf("RotateRight\n");
     //delay(time * 300);	//执�?�时间，�???以调�???
 }
 
-void turnLeft()         //左转()
+void turnLeft(float auto_fit)         //左转()
 {
     softPwmWrite(4,0); //左轮
-	softPwmWrite(1,40); 
+	softPwmWrite(1,20); 
 	softPwmWrite(6,0); //右轮前进
-	softPwmWrite(5,400); 
+	softPwmWrite(5,400 + auto_fit); 
 	printf("turnLeft\n");
 	//delay(time * 300);
    // delay(time * 300);
@@ -53,12 +53,12 @@ void turnLeft()         //左转()
 }
 
 
-void turnRight()        //右转()
+void turnRight(float auto_fit)        //右转()
 {
     softPwmWrite(4,0); //左轮前进
-	softPwmWrite(1,400); 
+	softPwmWrite(1,400 + auto_fit); 
 	softPwmWrite(6,0); //右轮
-	softPwmWrite(5,40); 
+	softPwmWrite(5,20); 
 	printf("turnRight\n");
     //delay(time * 300);	//执�?�时间，�???以调�???
 }
@@ -76,13 +76,17 @@ void visual_forward(int diff_right, int diff_left)
 {
 	if(diff_left > 0){
 		diff_right = diff_right * 2;
+		diff_left = diff_left * 2;
+	}else{
+		diff_left = diff_left * 2;
+		diff_right = diff_right * 2;
 	}
 	softPwmWrite(4,0); //左轮前进
 	softPwmWrite(1,130-diff_left); 
 	softPwmWrite(6,0); //右轮前进
 	softPwmWrite(5,130-diff_right); 
 	printf("forword\n");
-	printf("%d, %d\n", 150-diff_left, 150-diff_right);
+	printf("%d, %d\n", 130-diff_left, 130-diff_right);
 }
 
 

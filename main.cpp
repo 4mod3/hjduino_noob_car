@@ -118,7 +118,7 @@ int main(int argc, char *argv[])
 
 		//�?�??�测距和�??迹使�??
         distence_flag = false;
-		edge_flag = false;
+		edge_flag = true;
 		while(edge_flag && edge_request())
 		{
 			edge_handle();
@@ -324,26 +324,24 @@ int main(int argc, char *argv[])
 					// circle(frame, Point(x2, bottom), 5, Scalar(0, 0, 255));
 					// imshow("frame", frame);
 					printf("angle: %f\n", angle);
-					if(angle > 1.045){
+					if(angle > 1.2){
 						visual_forward(diff_pwm_cyc, -diff_pwm_cyc);
 					}
 					else if(x1 < x2){
-						// if(angle > 0.625){
-						// 	RotateLeft();
-						// }
-						// else{
-						// 	turnLeft();
-						// }
-						turnLeft();
+						if(angle >= 1){
+							turnLeft(0);
+						}
+						else{
+							turnLeft(1.5*log(angle)<-100?100:-1.5*log(angle));
+						}
 					}
 					else{
-						// if(angle > 0.625){
-						// 	RotateRight();
-						// }
-						// else{
-						// 	turnRight();
-						// }
-						turnRight();
+						if(angle >= 1){
+							turnRight(0);
+						}
+						else{
+							turnRight(1.5*log(angle)<-100?100:-1.5*log(angle));
+						}
 					}
 
 					// fourth scan
@@ -359,17 +357,20 @@ int main(int argc, char *argv[])
 					}
 				}
 				else{
-					int bottom = stats.at<int>(1, CC_STAT_TOP) + stats.at<int>(1, CC_STAT_HEIGHT);
+					int bottom = stats.at<int>(1, CC_STAT_TOP) + stats.at<int>(1, CC_STAT_HEIGHT)-1;
 					int x1 = 0, x2 = 0;
 					for(int i=0;i<stats.at<int>(1, CC_STAT_WIDTH);i++){
 						if(x1 == 0 && image.at<uchar>(stats.at<int>(1, CC_STAT_TOP), stats.at<int>(1, CC_STAT_LEFT)+i) == 255){
-							// printf("%d, %d\n",stats.at<int>(1, CC_STAT_LEFT),  stats.at<int>(1, CC_STAT_LEFT)+i);
+							//printf("x1 register : %d, %d\n",stats.at<int>(1, CC_STAT_LEFT),  stats.at<int>(1, CC_STAT_LEFT)+i);
 							x1 = stats.at<int>(1, CC_STAT_LEFT)+i;
 						}
+						//printf("### %d, %d : %d\n", bottom, stats.at<int>(1, CC_STAT_LEFT), image.at<uchar>(bottom, stats.at<int>(1, CC_STAT_LEFT)+i));
 						if(x2 == 0 && image.at<uchar>(bottom, stats.at<int>(1, CC_STAT_LEFT)+i) == 255){
 							x2 = stats.at<int>(1, CC_STAT_LEFT)+i;
+							//printf("x2 register : %d", image.at<uchar>(bottom, stats.at<int>(1, CC_STAT_LEFT)+i));
 						}
 					}
+					printf("x1: %d, x2: %d\n", x1, x2);
 					if(x1 < x2){
 						RotateLeft();
 					}
@@ -408,6 +409,7 @@ int main(int argc, char *argv[])
 					}
 			}
 			imshow("image", image);
+			waitKey(30);
 			// delay(20);
 			// center = visualControlByCenter(frame);
 			// printf("%d", center);

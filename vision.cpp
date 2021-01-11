@@ -68,10 +68,8 @@ int right_left_distence(Mat& image, int row_num)
     int left_count=0, right_count=0;
     // line(image, Point(0, row_num), Point(image.cols-1, row_num), Scalar( 0, 0, 0 ), 3);
     //printf("%d\n", image.step[0]);
-    
-    waitKey(30);
 
-    for(int i = middle_cols; i>=0; i--)
+    for(int i = middle_cols-1; i>=0; i--)
     {
         //printf("%d\n", image.at<uchar>(row_num, i));
         if(image.at<uchar>(row_num, i) == 255){
