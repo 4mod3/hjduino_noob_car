@@ -118,7 +118,7 @@ int main(int argc, char *argv[])
 
 		//�?�??�测距和�??迹使�??
         distence_flag = false;
-		edge_flag = true;
+		edge_flag = false;
 		while(edge_flag && edge_request())
 		{
 			edge_handle();
