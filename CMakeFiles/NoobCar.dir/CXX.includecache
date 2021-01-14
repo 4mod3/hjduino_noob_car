@@ -7,8 +7,6 @@
 #IncludeRegexTransform: 
 
 /home/pi/hjduino_noob_car/main.cpp
-pthread.h
--
 motion.h
 /home/pi/hjduino_noob_car/motion.h
 vision.h
@@ -43,6 +41,10 @@ arpa/inet.h
 -
 wiringPi.h
 -
+
+/home/pi/hjduino_noob_car/vision.cpp
+vision.h
+/home/pi/hjduino_noob_car/vision.h
 
 /home/pi/hjduino_noob_car/vision.h
 opencv2/core/core.hpp

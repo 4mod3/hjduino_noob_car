@@ -11,5 +11,4 @@ using namespace std;
 using namespace cv;
 
 extern bool signDetect(Mat& src, string signType, double epsilon, int minAcreage);
-extern int visualControlByCenter(Mat& frame);
 extern int right_left_distence(Mat& frame, int row_num);
