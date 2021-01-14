@@ -28,16 +28,11 @@ int main(int argc, char *argv[])
 
 	//init_keyboard();
 	//get video
-		VideoCapture capture(0);
-
-		printf("\n");
-		if(!capture.isOpened()) 
-			return -1;
-		Mat frame;
+		
+		Mat frame( 2, 2, CV_8UC3, Scalar(0,255,0));
 	while(1)
 	{
 		
-		capture >> frame;
 		imshow("raw", frame);
 		chr = waitKey(0);
 		
@@ -50,11 +45,11 @@ int main(int argc, char *argv[])
 				//delay(30);
 				break;
 			case 97:
-				turnLeft(0);
+				RotateLeft();
 				//delay(30);
 				break;
 			case 100:
-				turnRight(0);
+				RotateRight();
 				//delay(30);
 				break;
 			case 115:
@@ -112,7 +107,7 @@ int main(int argc, char *argv[])
 // 	{
 // 		clock_t time_start = clock();
 
-// 		//�??�???�测距和�???迹使�???
+// 		//�???�????�测距和�????迹使�????
 //         distence_flag = false;
 // 		edge_flag = false;
 // 		while(edge_flag && edge_request())
@@ -128,13 +123,13 @@ int main(int argc, char *argv[])
 
 // 		// if(distence_flag == false)
 // 		// {
-// 		// 	//�??�???�线避障 
+// 		// 	//�???�????�线避障 
 // 		// 	//有信号为LOW  没有信号为HIGH
 // 	 	// 	SR = digitalRead(RIGHT_BZ);//
 // 	  	// 	SL = digitalRead(LEFT_BZ);//
 // 	    // 	if (SL == LOW&&SR==LOW)
 // 		// 	{
-// 	    // 		printf("BACK\n");  //前面有物体时小车后退500ms 再转�???
+// 	    // 		printf("BACK\n");  //前面有物体时小车后退500ms 再转�????
 // 	    // 		back();
 // 	    // 		delay(300);
 // 	   	// 		//后退500ms
@@ -142,7 +137,7 @@ int main(int argc, char *argv[])
 // 	   	// 		delay(601);
 // 		// 	}
 // 	  	// 	else if (SL == HIGH&&SR == LOW)
-// 	  	// 	{//左边有物�??? 
+// 	  	// 	{//左边有物�???? 
 // 		// 		printf("RIGHT\n");
 // 		// 		RotateLeft();
 		  
@@ -150,7 +145,7 @@ int main(int argc, char *argv[])
 	  	
 // 		// 	else if (SR == HIGH&&SL == LOW) 
 // 		// 	{
-// 		// 		//右边有物�??? 
+// 		// 		//右边有物�???? 
 // 		// 		printf("LEFT\n");
 // 		// 		RotateRight();
 // 		// 	}
@@ -167,8 +162,8 @@ int main(int argc, char *argv[])
 // 		// 	//寻迹  此程序为赛道在两边的 
 // 		// 	//有信号为LOW  没有信号为HIGH
 // 		// 	//LOW 白色 high 黑色 
-//   		// 	xunji_left = digitalRead(RIGHT_XJ);//有信号表明在白色区域，车子底板上L�???；没信号表明压在黑线上，车子底板上L�???
-//  		// 	xunji_right = digitalRead(LEFT_XJ);//有信号表明在白色区域，车子底板上L�???；没信号表明压在黑线上，车子底板上L�???
+//   		// 	xunji_left = digitalRead(RIGHT_XJ);//有信号表明在白色区域，车子底板上L�????；没信号表明压在黑线上，车子底板上L�????
+//  		// 	xunji_right = digitalRead(LEFT_XJ);//有信号表明在白色区域，车子底板上L�????；没信号表明压在黑线上，车子底板上L�????
  		
 //  		// 	if (xunji_left == LOW&&xunji_right==LOW)
 // 		// 	{
@@ -185,7 +180,7 @@ int main(int argc, char *argv[])
 // 		// 	}
 // 		// 	else if (xunji_right == HIGH&&xunji_left == LOW)
 // 		// 	{
-// 		// 		// 右循迹红外传感器,检测到信号，车子向左偏离轨道，向右�???  
+// 		// 		// 右循迹红外传感器,检测到信号，车子向左偏离轨道，向右�????  
 			
 // 		// 		printf("LEFT\n");
 // 		// 		back();
@@ -204,8 +199,8 @@ int main(int argc, char *argv[])
 // 		// imshow("raw", frame);
 
 // 		// printf("%i, %i\n", distence_flag, edge_flag);
-// 			//使用视�?�进行控�???
-// 			//在本段逻辑之前�???进�?�控制操�???
+// 			//使用视�?�进行控�????
+// 			//在本段逻辑之前�????进�?�控制操�????
 // 			// printf("visual control\n");
 // 		// if(edge_flag && distence_flag){	
 // 			capture>>frame;
@@ -232,7 +227,7 @@ int main(int argc, char *argv[])
 // 				continue;
 // 			}
 
-// 			// �???�???检测停止标�???
+// 			// �????�????检测停止标�????
 // 			while(signDetect(frame, "stop", 8, 10000))
 // 			{
 // 				printf("Get Sign >> STOP\n");
@@ -254,7 +249,7 @@ int main(int argc, char *argv[])
 // 			}
 
 // 			if(signDetect(frame, "sound", 8, 10000)){
-// 				//蜂鸣�???
+// 				//蜂鸣�????
 // 				printf("Bee---");
 // 				digitalWrite(7, true);
 // 				delay(500);
