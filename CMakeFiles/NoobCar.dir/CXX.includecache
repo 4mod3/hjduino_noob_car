@@ -14,6 +14,10 @@ motion.h
 vision.h
 /home/pi/hjduino_noob_car/vision.h
 
+/home/pi/hjduino_noob_car/motion.cpp
+motion.h
+/home/pi/hjduino_noob_car/motion.h
+
 /home/pi/hjduino_noob_car/motion.h
 stdio.h
 -

@@ -19,11 +19,11 @@ bool distence_request()
 	return !(SR && SL); // false if normal
 }
 
-void distnce_handle()
+void distence_handle()
 {
 	if (SL == LOW&&SR==LOW)
 		{
-			printf("BACK\n");  //前面有物体时小车后退500ms 再转�??
+			printf("BACK\n");  //前面有物体时小车后退500ms 再转�???
 	   		back();
 			delay(300);
 			//后退500ms
@@ -31,7 +31,7 @@ void distnce_handle()
 			delay(601);
 		}
 	  	else if (SL == HIGH&&SR == LOW)
-	  	{//左边有物�?? 
+	  	{//左边有物�??? 
 			printf("RIGHT\n");
 			RotateLeft();
 		 
@@ -39,7 +39,7 @@ void distnce_handle()
 	  	
 		else if (SR == HIGH&&SL == LOW) 
 		{
-			//右边有物�?? 
+			//右边有物�??? 
 			printf("LEFT\n");
 			RotateRight();
 		}
@@ -47,8 +47,8 @@ void distnce_handle()
 
 bool edge_request()
 {
-	xunji_left = digitalRead(RIGHT_XJ);//有信号表明在白色区域，车子底板上L�??；没信号表明压在黑线上，车子底板上L�??
- 	xunji_right = digitalRead(LEFT_XJ);//有信号表明在白色区域，车子底板上L�??；没信号表明压在黑线上，车子底板上L�??
+	xunji_left = digitalRead(RIGHT_XJ);//有信号表明在白色区域，车子底板上L�???；没信号表明压在黑线上，车子底板上L�???
+ 	xunji_right = digitalRead(LEFT_XJ);//有信号表明在白色区域，车子底板上L�???；没信号表明压在黑线上，车子底板上L�???
  	return xunji_left || xunji_right; // false if normal
 }
 
@@ -64,7 +64,7 @@ void edge_handle()
 		}
 		else if (xunji_right == HIGH&&xunji_left == LOW)
 		{
-			// 右循迹红外传感器,检测到信号，车子向左偏离轨道，向右�??  
+			// 右循迹红外传感器,检测到信号，车子向左偏离轨道，向右�???  
 		
 			printf("LEFT\n");
 			back();
@@ -116,9 +116,9 @@ int main(int argc, char *argv[])
 	{
 		clock_t time_start = clock();
 
-		//�?�??�测距和�??迹使�??
+		//�??�???�测距和�???迹使�???
         distence_flag = false;
-		edge_flag = true;
+		edge_flag = false;
 		while(edge_flag && edge_request())
 		{
 			edge_handle();
@@ -130,15 +130,27 @@ int main(int argc, char *argv[])
 			continue;
 		}
 
+		//distence_flag
+		while(distence_flag && distence_request())
+		{
+			distence_handle();
+			printf("Obstacle!");
+			continue_flag = true;
+		}
+		if(continue_flag){
+			continue_flag = false;
+			continue;
+		}
+
 		// if(distence_flag == false)
 		// {
-		// 	//�?�??�线避障 
+		// 	//�??�???�线避障 
 		// 	//有信号为LOW  没有信号为HIGH
 	 	// 	SR = digitalRead(RIGHT_BZ);//
 	  	// 	SL = digitalRead(LEFT_BZ);//
 	    // 	if (SL == LOW&&SR==LOW)
 		// 	{
-	    // 		printf("BACK\n");  //前面有物体时小车后退500ms 再转�??
+	    // 		printf("BACK\n");  //前面有物体时小车后退500ms 再转�???
 	    // 		back();
 	    // 		delay(300);
 	   	// 		//后退500ms
@@ -146,7 +158,7 @@ int main(int argc, char *argv[])
 	   	// 		delay(601);
 		// 	}
 	  	// 	else if (SL == HIGH&&SR == LOW)
-	  	// 	{//左边有物�?? 
+	  	// 	{//左边有物�??? 
 		// 		printf("RIGHT\n");
 		// 		RotateLeft();
 		  
@@ -154,7 +166,7 @@ int main(int argc, char *argv[])
 	  	
 		// 	else if (SR == HIGH&&SL == LOW) 
 		// 	{
-		// 		//右边有物�?? 
+		// 		//右边有物�??? 
 		// 		printf("LEFT\n");
 		// 		RotateRight();
 		// 	}
@@ -171,8 +183,8 @@ int main(int argc, char *argv[])
 		// 	//寻迹  此程序为赛道在两边的 
 		// 	//有信号为LOW  没有信号为HIGH
 		// 	//LOW 白色 high 黑色 
-  		// 	xunji_left = digitalRead(RIGHT_XJ);//有信号表明在白色区域，车子底板上L�??；没信号表明压在黑线上，车子底板上L�??
- 		// 	xunji_right = digitalRead(LEFT_XJ);//有信号表明在白色区域，车子底板上L�??；没信号表明压在黑线上，车子底板上L�??
+  		// 	xunji_left = digitalRead(RIGHT_XJ);//有信号表明在白色区域，车子底板上L�???；没信号表明压在黑线上，车子底板上L�???
+ 		// 	xunji_right = digitalRead(LEFT_XJ);//有信号表明在白色区域，车子底板上L�???；没信号表明压在黑线上，车子底板上L�???
  		
  		// 	if (xunji_left == LOW&&xunji_right==LOW)
 		// 	{
@@ -189,7 +201,7 @@ int main(int argc, char *argv[])
 		// 	}
 		// 	else if (xunji_right == HIGH&&xunji_left == LOW)
 		// 	{
-		// 		// 右循迹红外传感器,检测到信号，车子向左偏离轨道，向右�??  
+		// 		// 右循迹红外传感器,检测到信号，车子向左偏离轨道，向右�???  
 			
 		// 		printf("LEFT\n");
 		// 		back();
@@ -208,8 +220,8 @@ int main(int argc, char *argv[])
 		// imshow("raw", frame);
 
 		// printf("%i, %i\n", distence_flag, edge_flag);
-			//使用视�?�进行控�??
-			//在本段逻辑之前�??进�?�控制操�??
+			//使用视�?�进行控�???
+			//在本段逻辑之前�???进�?�控制操�???
 			// printf("visual control\n");
 		// if(edge_flag && distence_flag){	
 			capture>>frame;
@@ -236,7 +248,7 @@ int main(int argc, char *argv[])
 				continue;
 			}
 
-			// �??�??检测停止标�??
+			// �???�???检测停止标�???
 			while(signDetect(frame, "stop", 8, 10000))
 			{
 				printf("Get Sign >> STOP\n");
@@ -258,7 +270,7 @@ int main(int argc, char *argv[])
 			}
 
 			if(signDetect(frame, "sound", 8, 10000)){
-				//蜂鸣�??
+				//蜂鸣�???
 				printf("Bee---");
 				digitalWrite(7, true);
 				delay(500);
@@ -304,20 +316,20 @@ int main(int argc, char *argv[])
 			}
 			printf("num:%d\n", list.size());
 			if(list.size() == 1){
-				printf("center: %lf\n", centroids.at<double>(1, 1));
-				if(centroids.at<double>(1, 1) < 45){
+				printf("center: %lf\n", centroids.at<double>(list[0], 1));
+				if(centroids.at<double>(list[0], 1) < 45){
 					visual_forward(diff_pwm_cyc, -diff_pwm_cyc);
 				}
-				else if(centroids.at<double>(1, 1) < 250){
-					double angle = (double)stats.at<int>(1, CC_STAT_HEIGHT)/(double)stats.at<int>(1, CC_STAT_WIDTH);
-					int bottom = stats.at<int>(1, CC_STAT_TOP) + stats.at<int>(1, CC_STAT_HEIGHT)-1;
+				else if(centroids.at<double>(list[0], 1) < 250){
+					double angle = (double)stats.at<int>(list[0], CC_STAT_HEIGHT)/(double)stats.at<int>(list[0], CC_STAT_WIDTH);
+					int bottom = stats.at<int>(list[0], CC_STAT_TOP) + stats.at<int>(list[0], CC_STAT_HEIGHT)-1;
 					int x1 = 0, x2 = 0;
-					for(int i=0;i<stats.at<int>(1, CC_STAT_WIDTH);i++){
-						if(x1 == 0 && image.at<uchar>(stats.at<int>(1, CC_STAT_TOP), stats.at<int>(1, CC_STAT_LEFT)+i) == 255){
-							x1 = stats.at<int>(1, CC_STAT_LEFT)+i;
+					for(int i=0;i<stats.at<int>(list[0], CC_STAT_WIDTH);i++){
+						if(x1 == 0 && image.at<uchar>(stats.at<int>(list[0], CC_STAT_TOP), stats.at<int>(list[0], CC_STAT_LEFT)+i) == 255){
+							x1 = stats.at<int>(list[0], CC_STAT_LEFT)+i;
 						}
-						if(x2 == 0 && image.at<uchar>(bottom, stats.at<int>(1, CC_STAT_LEFT)+i) == 255){
-							x2 = stats.at<int>(1, CC_STAT_LEFT)+i;
+						if(x2 == 0 && image.at<uchar>(bottom, stats.at<int>(list[0], CC_STAT_LEFT)+i) == 255){
+							x2 = stats.at<int>(list[0], CC_STAT_LEFT)+i;
 							// printf("update x2: %d\n", x2);
 						}
 					}
@@ -357,17 +369,14 @@ int main(int argc, char *argv[])
 					}
 				}
 				else{
-					int bottom = stats.at<int>(1, CC_STAT_TOP) + stats.at<int>(1, CC_STAT_HEIGHT)-1;
+					int bottom = stats.at<int>(list[0], CC_STAT_TOP) + stats.at<int>(list[0], CC_STAT_HEIGHT)-1;
 					int x1 = 0, x2 = 0;
-					for(int i=0;i<stats.at<int>(1, CC_STAT_WIDTH);i++){
-						if(x1 == 0 && image.at<uchar>(stats.at<int>(1, CC_STAT_TOP), stats.at<int>(1, CC_STAT_LEFT)+i) == 255){
-							//printf("x1 register : %d, %d\n",stats.at<int>(1, CC_STAT_LEFT),  stats.at<int>(1, CC_STAT_LEFT)+i);
-							x1 = stats.at<int>(1, CC_STAT_LEFT)+i;
+					for(int i=0;i<stats.at<int>(list[0], CC_STAT_WIDTH);i++){
+						if(x1 == 0 && image.at<uchar>(stats.at<int>(list[0], CC_STAT_TOP), stats.at<int>(list[0], CC_STAT_LEFT)+i) == 255){
+							x1 = stats.at<int>(list[0], CC_STAT_LEFT)+i;
 						}
-						//printf("### %d, %d : %d\n", bottom, stats.at<int>(1, CC_STAT_LEFT), image.at<uchar>(bottom, stats.at<int>(1, CC_STAT_LEFT)+i));
-						if(x2 == 0 && image.at<uchar>(bottom, stats.at<int>(1, CC_STAT_LEFT)+i) == 255){
-							x2 = stats.at<int>(1, CC_STAT_LEFT)+i;
-							//printf("x2 register : %d", image.at<uchar>(bottom, stats.at<int>(1, CC_STAT_LEFT)+i));
+						if(x2 == 0 && image.at<uchar>(bottom, stats.at<int>(list[0], CC_STAT_LEFT)+i) == 255){
+							x2 = stats.at<int>(list[0], CC_STAT_LEFT)+i;
 						}
 					}
 					printf("x1: %d, x2: %d\n", x1, x2);
@@ -410,23 +419,6 @@ int main(int argc, char *argv[])
 			}
 			imshow("image", image);
 			waitKey(30);
-			// delay(20);
-			// center = visualControlByCenter(frame);
-			// printf("%d", center);
-			// if(center>340){
-			// 	diff_right = (int)(0.6*(center - 340));
-			// 	diff_left = 0;
-			// }else if(center<300){
-			// 	diff_left = (int)(0.6*(300 - center));
-			// 	diff_right = 0;
-			// }else{
-			// 	diff_left = 0;
-			// 	diff_right = 0;
-			// }
-			// run();
-			// visual_forward(diff_right, diff_left);
-			//delay(500);
-		//}
 		clock_t time_end = clock();
 		printf("%lf ms\n", 1000*(time_end-time_start)/(double)CLOCKS_PER_SEC);
 	}
