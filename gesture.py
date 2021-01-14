@@ -126,7 +126,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
 
         print(count)
-        font = cv2.FONT_HERSHEY_SIMPLEX
+        
         if count == 1:
             if arearatio<12:
                 stop()
